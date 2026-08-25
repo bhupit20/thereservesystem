@@ -80,7 +80,7 @@ export async function onRequestPost({ request, env }) {
 
   if (!upsertRes.ok) {
     const err = await upsertRes.json().catch(() => ({}));
-    return json({ ok: false, error: err.detail || "Mailchimp did not accept the signup." }, 502);
+    return json({ ok: false, error: err.detail || "Mailchimp did not accept the signup." }, 500);
   }
 
   // Tag application is a separate call so it applies every time, regardless
@@ -93,7 +93,7 @@ export async function onRequestPost({ request, env }) {
 
   if (!tagRes.ok) {
     const err = await tagRes.json().catch(() => ({}));
-    return json({ ok: false, error: err.detail || "Subscribed, but tagging failed." }, 502);
+    return json({ ok: false, error: err.detail || "Subscribed, but tagging failed." }, 500);
   }
 
   return json({ ok: true });
