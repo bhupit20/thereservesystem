@@ -1,0 +1,24 @@
+# Production redirects for legacy/capture domains.
+# Cloudflare Pages supports _redirects for path-level routing on the deployed project.
+# Domain-level redirects are best configured in Cloudflare Redirect Rules.
+
+https://thelongevitypyramid.com/* https://thereservesystem.com/quiz/ 301
+https://www.thelongevitypyramid.com/* https://thereservesystem.com/quiz/ 301
+https://icureserve.com/* https://thereservesystem.com/quiz/ 302
+https://www.icureserve.com/* https://thereservesystem.com/quiz/ 302
+
+/pages/chapter-1.html /chapter-1/index.html 301
+
+# Clean launch paths.
+/chapter-1 /chapter-1/index.html 200
+/quiz /quiz/index.html 200
+/book /pages/book.html 200
+/clinicians /pages/clinicians.html 200
+/patient-referral /pages/patient-referral.html 200
+/book-a-conversation /pages/book-a-conversation.html 200
+/book-a-conversation/ /pages/book-a-conversation.html 200
+/reserve-review /book-a-conversation/ 301
+/reserve-review/ /book-a-conversation/ 301
+/reserve-review/* /book-a-conversation/ 301
+/evidence-library /pages/evidence-library.html 200
+/evidence-library/ /pages/evidence-library.html 200
