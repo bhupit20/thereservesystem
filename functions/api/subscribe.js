@@ -68,6 +68,12 @@ export async function onRequestPost({ request, env }) {
   // Upsert first. PUT-by-hash creates new contacts and updates existing ones
   // in the same call, which is what makes this reliable for already-subscribed
   // contacts (the embedded Mailchimp form only tags brand-new signups).
+  //
+  // Tags are included here too, in the same write as merge_fields, so a
+  // tag-triggered welcome automation never fires before FNAME has landed.
+  // The dedicated /tags call right after is kept anyway as the documented,
+  // reliable way to trigger "tag added" automations — Mailchimp doesn't
+  // consistently fire those off a tags array set via this endpoint alone.
   const upsertRes = await fetch(memberUrl, {
     method: "PUT",
     headers: { Authorization: auth, "content-type": "application/json" },
@@ -75,6 +81,7 @@ export async function onRequestPost({ request, env }) {
       email_address: cleanEmail,
       status_if_new: "subscribed",
       ...(firstName ? { merge_fields: { FNAME: String(firstName).slice(0, 80) } } : {}),
+      tags: safeTags,
     }),
   });
 
