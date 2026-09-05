@@ -70,63 +70,142 @@
       ============================================================= -->
       <style>
         .event-banner {
-          background: var(--color-navy);
+          position: relative;
+          background: linear-gradient(160deg, var(--color-navy-deep), var(--color-navy) 60%);
           color: var(--color-inverse);
-          padding-block: clamp(2.5rem, 5vw, 4rem);
+          padding-block: clamp(3.5rem, 7vw, 5.5rem);
+          border-top: 1px solid color-mix(in oklab, var(--color-gold), transparent 55%);
           border-bottom: 3px solid var(--color-gold);
+          overflow: hidden;
+        }
+        .event-banner::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(60% 90% at 85% 0%, color-mix(in oklab, var(--color-gold), transparent 88%), transparent 70%);
+          pointer-events: none;
         }
         .event-banner .container {
-          max-width: 720px;
-          text-align: center;
+          position: relative;
+          max-width: 1080px;
         }
-        .event-banner .eyebrow {
+        .event-grid {
+          display: grid;
+          grid-template-columns: minmax(280px, 460px) 1fr;
+          gap: clamp(2rem, 5vw, 4rem);
+          align-items: center;
+        }
+        .event-embed-card {
+          background: var(--color-surface);
+          border-radius: var(--radius-lg);
+          padding: 6px;
+          box-shadow: var(--shadow-image);
+          border: 1px solid color-mix(in oklab, var(--color-gold), transparent 60%);
+        }
+        .event-banner iframe {
+          display: block;
+          width: 100%;
+          height: 750px;
+          border: 0;
+          border-radius: calc(var(--radius-lg) - 4px);
+        }
+        .event-copy .status-badge {
+          display: inline-block;
+          padding: 6px 14px;
+          border: 1px solid var(--color-gold);
+          border-radius: var(--radius-full);
+          font-family: var(--font-sans, inherit);
+          font-size: 0.72rem;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
           color: var(--color-gold);
+          font-weight: 700;
+          margin: 0 0 var(--space-5);
         }
-        .event-banner h2 {
+        .event-copy h2 {
           color: var(--color-inverse);
           font-family: var(--font-display);
           font-weight: 400;
-          font-size: clamp(1.5rem, 3vw, 2.1rem);
-          margin: 0 0 var(--space-4);
+          font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+          line-height: 1.15;
+          margin: 0 0 var(--space-5);
         }
-        .event-banner .event-details {
+        .event-copy .rule {
+          width: 72px;
+          height: 2px;
+          background: var(--color-gold);
           margin: 0 0 var(--space-6);
-          font-size: var(--text-lg, 1.1rem);
-          line-height: 1.6;
         }
-        .event-banner .event-details strong {
+        .event-facts {
+          display: grid;
+          gap: var(--space-4);
+          margin: 0 0 var(--space-2);
+          padding: 0;
+          list-style: none;
+        }
+        .event-facts li {
+          display: grid;
+          grid-template-columns: 96px 1fr;
+          gap: var(--space-4);
+          align-items: baseline;
+          border-top: 1px solid color-mix(in oklab, var(--color-inverse), transparent 85%);
+          padding-top: var(--space-4);
+        }
+        .event-facts li:first-child {
+          border-top: 1px solid color-mix(in oklab, var(--color-inverse), transparent 85%);
+        }
+        .event-facts .fact-label {
+          font-size: 0.72rem;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--color-gold);
+          font-weight: 700;
+        }
+        .event-facts .fact-value {
+          font-size: 1.08rem;
+          line-height: 1.5;
           color: var(--color-inverse);
         }
-        .event-banner .event-embed-wrap {
-          display: flex;
-          justify-content: center;
-        }
-        .event-banner iframe {
-          width: 100%;
-          max-width: 600px;
-          height: 450px;
-          border: 1px solid #bfcbda88;
-          border-radius: 4px;
-          background: var(--color-inverse);
+        @media (max-width: 860px) {
+          .event-grid {
+            grid-template-columns: 1fr;
+          }
+          .event-copy {
+            order: 2;
+          }
+          .event-embed-card {
+            order: 1;
+          }
         }
       </style>
       <section class="event-banner">
         <div class="container">
-          <p class="eyebrow">RSVP by September 17</p>
-          <h2>Meet Dr. Jarbou &mdash; Book Signing Event</h2>
-          <p class="event-details">
-            <strong>Thursday, September 17, 4&ndash;6pm</strong><br />
-            The Heist, 15 S. 5th St. Ste. B, Columbia, MO
-          </p>
-          <div class="event-embed-wrap">
-            <iframe
-              src="https://luma.com/embed/event/evt-nIA8pdUeVrG8lIt/simple"
-              frameborder="0"
-              allow="fullscreen; payment"
-              aria-hidden="false"
-              tabindex="0"
-              title="RSVP: Meet Dr. Jarbou — Book Signing Event"
-            ></iframe>
+          <div class="event-grid">
+            <div class="event-embed-card">
+              <iframe
+                src="https://luma.com/embed/event/evt-nIA8pdUeVrG8lIt/simple"
+                frameborder="0"
+                allow="fullscreen; payment"
+                aria-hidden="false"
+                tabindex="0"
+                title="RSVP: Meet Dr. Jarbou — Book Signing Event"
+              ></iframe>
+            </div>
+            <div class="event-copy">
+              <span class="status-badge">RSVP by September 17</span>
+              <h2>Meet Dr. Jarbou<br />Book Signing Event</h2>
+              <div class="rule"></div>
+              <ul class="event-facts">
+                <li>
+                  <span class="fact-label">Date</span>
+                  <span class="fact-value">Thursday, September 17<br />4&ndash;6pm</span>
+                </li>
+                <li>
+                  <span class="fact-label">Location</span>
+                  <span class="fact-value">The Heist<br />15 S. 5th St. Ste. B, Columbia, MO</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
