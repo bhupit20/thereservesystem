@@ -44,6 +44,7 @@ function setupSubscribeForm(form, options = {}) {
       firstName: fd.get("FNAME"),
       source: fd.get("SOURCE"),
       tags: String(form.dataset.tags || "").split(","),
+      tier: fd.get("TIER"),
       website: fd.get("website"),
     };
 
@@ -289,6 +290,7 @@ if (quizMount) {
           <form class="form-grid" data-subscribe data-tags="${resultTags}" data-result-url="${result.url}" action="${mailchimpAction}" method="post" data-success="Your score is ready. Opening your result now." data-error="That did not go through. Please check the email address and try again.">
             <input type="hidden" name="SOURCE" value="quiz" />
             <input type="hidden" name="tags" value="${numericTags}" />
+            <input type="hidden" name="TIER" value="${result.key}" />
             <label>Email address <input type="email" name="EMAIL" required placeholder="you@example.com" autocomplete="email" /></label>
             <label>First name <input type="text" name="FNAME" placeholder="Optional" autocomplete="given-name" /></label>
             <button class="button" type="submit">Show my Reserve Score</button>
