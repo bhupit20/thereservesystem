@@ -112,6 +112,7 @@ src="https://www.facebook.com/tr?id=941275648441723&ev=PageView&noscript=1"
           align-items: center;
         }
         .event-embed-card {
+          position: relative;
           background: #e9f0fd;
           border-radius: var(--radius-lg);
           padding: 6px;
@@ -124,6 +125,31 @@ src="https://www.facebook.com/tr?id=941275648441723&ev=PageView&noscript=1"
           height: 750px;
           border: 0;
           border-radius: calc(var(--radius-lg) - 4px);
+        }
+        .event-embed-loading {
+          position: absolute;
+          inset: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          background: #e9f0fd;
+          border-radius: calc(var(--radius-lg) - 4px);
+          font-family: var(--font-sans, inherit);
+          font-size: 0.92rem;
+          color: var(--color-navy);
+          pointer-events: none;
+        }
+        .event-embed-loading .spinner {
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          border: 2px solid color-mix(in oklab, var(--color-navy), transparent 75%);
+          border-top-color: var(--color-navy);
+          animation: event-spin 0.8s linear infinite;
+        }
+        @keyframes event-spin {
+          to { transform: rotate(360deg); }
         }
         .event-copy .status-badge {
           display: inline-block;
@@ -198,13 +224,16 @@ src="https://www.facebook.com/tr?id=941275648441723&ev=PageView&noscript=1"
         <div class="container">
           <div class="event-grid">
             <div class="event-embed-card">
+              <div class="event-embed-loading" id="event-embed-loading"><span class="spinner" aria-hidden="true"></span>Loading RSVP&hellip;</div>
               <iframe
                 src="https://luma.com/embed/event/evt-nIA8pdUeVrG8lIt/simple"
                 frameborder="0"
+                loading="eager"
                 allow="fullscreen; payment"
                 aria-hidden="false"
                 tabindex="0"
                 title="RSVP: Meet Dr. Jarbou — Book Signing Event"
+                onload="var l=document.getElementById('event-embed-loading'); if(l) l.style.display='none';"
               ></iframe>
             </div>
             <div class="event-copy">
