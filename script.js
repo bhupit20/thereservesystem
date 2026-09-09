@@ -1,3 +1,10 @@
+document.addEventListener("click", (event) => {
+  const orderLink = event.target.closest('a[href*="amazon.com/dp/B0H98M8JSS"]');
+  if (orderLink && typeof fbq === "function") {
+    fbq("track", "ViewContent");
+  }
+});
+
 const menuToggle = document.querySelector("[data-menu-toggle]");
 const navLinks = document.querySelector("[data-nav-links]");
 if (menuToggle && navLinks) {
@@ -62,6 +69,9 @@ function setupSubscribeForm(form, options = {}) {
       .then((res) => res.json().then((data) => ({ ok: res.ok && data.ok, data })))
       .then(({ ok, data }) => {
         if (ok) {
+          if (typeof fbq === "function" && ["chapter-1", "book-launch"].includes(body.source)) {
+            fbq("track", "Lead");
+          }
           status.className = "form-status success";
           status.textContent =
             form.dataset.success ||
